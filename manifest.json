@@ -9,15 +9,16 @@
   "background_color": "#071739",
   "theme_color": "#071739",
 
-"icons": [
-  {
-    "src": "assets/tsm.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  },
-  {
-    "src": "assets/tsm.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-]
+  "icons": [
+    {
+      "src": "assets/tsm.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/tsm.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
