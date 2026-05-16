@@ -1,7 +1,7 @@
 // ========================================
 // CACHE NAME
 // ========================================
-const CACHE_NAME = "tcm-accounting-cache-v20";
+const CACHE_NAME = "tcm-accounting-cache-v50";
 
 
 // ========================================
