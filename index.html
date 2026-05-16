@@ -1,0 +1,417 @@
+ <!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    PT. Tunas Sari Mulia - Accounting Dashboard
+  </title>
+
+
+  <!-- PWA -->
+  <link
+    rel="manifest"
+    href="manifest.json"
+  />
+
+  <meta
+    name="theme-color"
+    content="#071739"
+  />
+
+
+  <!-- ICON -->
+  <link
+    rel="icon"
+    href="assets/tsm.png"
+    type="image/png"
+  />
+
+
+  <!-- CSS -->
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
+
+  <!-- PDF EXPORT -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.29/dist/jspdf.plugin.autotable.min.js"></script>
+
+</head>
+
+<body>
+
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+
+    <!-- HEADER -->
+    <header class="app-header">
+
+
+      <div class="header-left">
+
+
+        <div class="logo-box">
+
+          <img
+            src="assets/tsm.png"
+            alt="TSM Logo"
+          />
+
+        </div>
+
+
+        <div class="company-info">
+
+          <h1>
+            PT. TUNAS SARI MULIA
+          </h1>
+
+          <p>
+            Accounting Dashboard
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="header-actions">
+
+
+        <button
+          class="btn btn-primary"
+          onclick="exportPDF()"
+        >
+          Export PDF
+        </button>
+
+
+        <button
+          class="btn btn-success"
+          onclick="openModal()"
+        >
+          + Tambah Transaksi
+        </button>
+
+
+        <button
+          class="btn btn-info"
+          onclick="openAccountModal()"
+        >
+          + Akun Baru
+        </button>
+
+
+      </div>
+
+    </header>
+
+
+    <!-- SUMMARY -->
+    <section class="summary-grid">
+
+
+      <div class="summary-card">
+
+        <p>Total Saldo</p>
+
+        <h2 id="totalSaldo">
+          Rp 0
+        </h2>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <p>Total Debit</p>
+
+        <h2 id="totalDebit">
+          Rp 0
+        </h2>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <p>Total Kredit</p>
+
+        <h2 id="totalKredit">
+          Rp 0
+        </h2>
+
+      </div>
+
+
+    </section>
+        <!-- TABLE -->
+    <section class="table-section">
+
+
+      <div class="table-header">
+
+        <h2>
+          Data Pembukuan
+        </h2>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+
+        <table id="dataTable">
+
+
+          <thead>
+
+            <tr>
+
+              <th>Tanggal</th>
+
+              <th>Akun</th>
+
+              <th>Keterangan</th>
+
+              <th>Debit</th>
+
+              <th>Kredit</th>
+
+              <th>Aksi</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <!-- DATA JS -->
+
+          </tbody>
+
+
+        </table>
+
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- MODAL TRANSAKSI -->
+  <div
+    class="modal"
+    id="transactionModal"
+  >
+
+
+    <div class="modal-content">
+
+
+      <div class="modal-header">
+
+
+        <h2>
+          Tambah Transaksi
+        </h2>
+
+
+        <button
+          class="close-btn"
+          onclick="closeModal()"
+        >
+          ×
+        </button>
+
+
+      </div>
+
+
+      <form id="transactionForm">
+
+
+        <div class="form-group">
+
+          <input
+            type="date"
+            id="tanggal"
+            required
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <select
+            id="akun"
+            required
+          >
+
+            <option value="">
+              Pilih Nama Akun
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <input
+            type="text"
+            id="keterangan"
+            placeholder="Keterangan"
+            required
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <input
+            type="number"
+            id="debit"
+            placeholder="Debit"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <input
+            type="number"
+            id="kredit"
+            placeholder="Kredit"
+          />
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="submit-btn"
+        >
+          Simpan
+        </button>
+
+
+      </form>
+
+    </div>
+
+  </div>
+    <!-- MODAL AKUN -->
+  <div
+    class="modal"
+    id="accountModal"
+  >
+
+
+    <div class="modal-content small-modal">
+
+
+      <div class="modal-header">
+
+
+        <h2>
+          Tambah Akun Baru
+        </h2>
+
+
+        <button
+          class="close-btn"
+          onclick="closeAccountModal()"
+        >
+          ×
+        </button>
+
+
+      </div>
+
+
+      <form id="accountForm">
+
+
+        <div class="form-group">
+
+          <input
+            type="text"
+            id="namaAkunBaru"
+            placeholder="Nama Akun Baru"
+            required
+          />
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="submit-btn"
+        >
+          Simpan Akun
+        </button>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
+
+
+  <!-- SERVICE WORKER -->
+  <script>
+
+    if ("serviceWorker" in navigator) {
+
+      navigator.serviceWorker
+        .register("sw.js")
+
+        .then(() => {
+
+          console.log(
+            "Service Worker Active"
+          );
+
+        })
+
+        .catch((err) => {
+
+          console.log(
+            "SW Error:",
+            err
+          );
+
+        });
+
+    }
+
+  </script>
+
+</body>
+</html>
