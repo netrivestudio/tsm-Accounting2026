@@ -14,7 +14,7 @@ const FILES_TO_CACHE = [
   "./script.js",
   "./manifest.json",
 
-  "./assets/tcm.png"
+  "./assets/tsm.png"
 ];
 
 
