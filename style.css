@@ -214,6 +214,14 @@ body {
 }
 
 
+.btn-danger {
+
+  background: #dc2626;
+
+  color: #ffffff;
+
+}
+
 .delete-btn {
 
   background: #dc2626;
