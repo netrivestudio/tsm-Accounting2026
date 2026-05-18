@@ -19,7 +19,7 @@ const defaultAccounts = [
   "BIAYA TELEPHONE DAN INTERNET",
   "BIAYA GAJI",
   "BIAYA JASA PEST CONTROL",
-  "BIAYA BENSIN KENDARAAN OPRATIONAL",
+  "BIAYA BENSIN KENDARAAN OPERASIONAL",
   "BIAYA EKSPEDISI-IN",
   "BIAYA EKSPEDISI-OUT",
   "BIAYA AMBIL GULA",
@@ -468,7 +468,26 @@ function deleteTransaction(index) {
   updateDashboard();
 
 }
+// =========================================
+// DELETE ALL TRANSACTIONS
+// =========================================
+function deleteAllTransactions() {
 
+  const confirmDelete = confirm(
+    "Yakin ingin menghapus semua transaksi?"
+  );
+
+  if (!confirmDelete) return;
+
+  transactions = [];
+
+  saveTransactions();
+
+  renderTransactions();
+
+  updateDashboard();
+
+}
 
 // =========================================
 // UPDATE DASHBOARD
@@ -488,7 +507,7 @@ function updateDashboard() {
   });
 
   const totalSaldo =
-    totalDebit - totalKredit;
+  totalKredit - totalDebit;  
 
   totalSaldoElement.textContent =
     formatRupiah(totalSaldo);
@@ -537,9 +556,74 @@ function exportPDF() {
   });
 
   const totalSaldo =
-    totalDebit - totalKredit;
+  totalKredit - totalDebit;
+// =========================================
+// REPORT SUMMARY
+// =========================================
+let totalPenjualan = 0;
+
+let totalExpedisiIn = 0;
+
+let totalExpedisiOut = 0;
+
+let totalConsumable = 0;
+
+let totalBensin = 0;
+
+let totalPerlengkapanProduksi = 0;
 
 
+transactions.forEach((item) => {
+
+  if (item.akun === "PENJUALAN") {
+
+    totalPenjualan += item.kredit;
+
+  }
+
+  if (
+    item.akun === "BIAYA EKSPEDISI-IN"
+  ) {
+
+    totalExpedisiIn += item.debit;
+
+  }
+
+  if (
+    item.akun === "BIAYA EKSPEDISI-OUT"
+  ) {
+
+    totalExpedisiOut += item.debit;
+
+  }
+
+  if (
+    item.akun === "BIAYA CONSUMABLE"
+  ) {
+
+    totalConsumable += item.debit;
+
+  }
+
+  if (
+    item.akun ===
+    "BIAYA BENSIN KENDARAAN OPERASIONAL"
+  ) {
+
+    totalBensin += item.debit;
+
+  }
+
+  if (
+    item.akun ===
+    "BIAYA PERLENGKAPAN PRODUKSI"
+  ) {
+
+    totalPerlengkapanProduksi += item.debit;
+
+  }
+
+});
   // HEADER
   doc.setFontSize(18);
 
@@ -627,22 +711,52 @@ function exportPDF() {
 
     body: [
 
-      [
-        "Total Debit",
-        formatRupiah(totalDebit)
-      ],
+  [
+    "Penjualan",
+    formatRupiah(totalPenjualan)
+  ],
 
-      [
-        "Total Kredit",
-        formatRupiah(totalKredit)
-      ],
+  [
+    "Biaya Ekspedisi - In",
+    formatRupiah(totalExpedisiIn)
+  ],
 
-      [
-        "Total Saldo",
-        formatRupiah(totalSaldo)
-      ]
+  [
+    "Biaya Ekspedisi - Out",
+    formatRupiah(totalExpedisiOut)
+  ],
 
-    ]
+  [
+    "Biaya Consumable",
+    formatRupiah(totalConsumable)
+  ],
+
+  [
+    "Biaya Bensin Kendaraan Operational",
+    formatRupiah(totalBensin)
+  ],
+
+  [
+    "Biaya Perlengkapan Produksi",
+    formatRupiah(totalPerlengkapanProduksi)
+  ],
+
+  [
+    "Total Saldo",
+    formatRupiah(totalSaldo)
+  ],
+
+  [
+    "Total Kredit",
+    formatRupiah(totalKredit)
+  ],
+
+  [
+    "Total Debit",
+    formatRupiah(totalDebit)
+  ]
+
+]
 
   });
 
