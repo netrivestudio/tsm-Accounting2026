@@ -582,12 +582,12 @@ transactions.forEach((item) => {
   }
 
   if (
-    item.akun === "BIAYA EKSPEDISI-IN"
-  ) {
+  item.akun === "BIAYA EKSPEDISI-IN"
+) {
 
-    totalExpedisiIn += item.debit;
+  totalExpedisiIn += item.kredit;
 
-  }
+}
 
   if (
     item.akun === "BIAYA EKSPEDISI-OUT"
