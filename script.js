@@ -742,20 +742,19 @@ transactions.forEach((item) => {
   ],
 
   [
-    "Total Saldo",
-    formatRupiah(totalSaldo)
-  ],
+  "Total Kredit",
+  formatRupiah(totalKredit)
+],
 
-  [
-    "Total Kredit",
-    formatRupiah(totalKredit)
-  ],
+[
+  "Total Debit",
+  formatRupiah(totalDebit)
+],
 
-  [
-    "Total Debit",
-    formatRupiah(totalDebit)
-  ]
-
+[
+  "Total Saldo",
+  formatRupiah(totalSaldo)
+]
 ]
 
   });
